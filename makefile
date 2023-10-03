@@ -9,7 +9,7 @@ ruler.exe : ruler.obj ruler.res
 ruler.obj : ruler.cpp
 	cl /c /std:c++17 ruler.cpp
 
-ruler.res : ruler.rc
+ruler.res : ruler.rc ruler.ico
 	rc ruler.rc
 
 

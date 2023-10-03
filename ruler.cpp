@@ -55,7 +55,7 @@ int WinMain ( HINSTANCE hInst, HINSTANCE hPrevInst,
 	wc.hbrBackground = (HBRUSH)GetStockObject(BLACK_BRUSH);
 	wc.lpszMenuName = NULL;
 	wc.lpszClassName = RulerCN;
-	HICON	hI = LoadIcon( NULL, IDI_APPLICATION );
+	HICON	hI = LoadIcon( hInst, "MyIcon" );
 	wc.hIcon = hI;
 	wc.hIconSm = hI;
 	wc.hCursor = LoadCursor( NULL, IDC_ARROW );
