@@ -22,6 +22,8 @@ HWND	ghWnd;
 int		giX, giY, giWidth, giHeight;
 int		gnMode = 0;		// マウスについていくときは not0
 int		giDispWidth, giDispHeight;
+int		gfTopMost = 1;	// TopMostの時は not0
+
 
 
 LRESULT WndProc ( HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam );
@@ -69,7 +71,9 @@ int WinMain ( HINSTANCE hInst, HINSTANCE hPrevInst,
 	giHeight = 50;
 	ghWnd = CreateWindowEx( NULL, RulerCN, AppName, WS_POPUP | WS_BORDER,
 						giX, giY, giWidth, giHeight, NULL, NULL, hInst, NULL );
-	ShowWindow( ghWnd, CmdShow );
+	SetWindowPos( ghWnd, HWND_TOPMOST, giX, giY, giWidth, giHeight,
+															SWP_SHOWWINDOW );
+	//ShowWindow( ghWnd, CmdShow );
 	UpdateWindow( ghWnd );
 
 	// メッセージループ
@@ -123,6 +127,8 @@ LRESULT WndProc ( HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam )
 		pt.y = HIWORD( lParam );
 		HMENU	h = LoadMenu( hInstance, "MyMenu" );
 		HMENU	hs = GetSubMenu( h, 0 );
+		CheckMenuItem( h, IDM_TOPMOST,
+				MF_BYCOMMAND | ( gfTopMost ? MF_CHECKED : MF_UNCHECKED )  );
 		ClientToScreen( hWnd, &pt );
 		TrackPopupMenu( hs, TPM_LEFTALIGN, pt.x, pt.y, 0, hWnd, NULL );
 		DestroyMenu( h );
@@ -150,6 +156,14 @@ LRESULT WndProc ( HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam )
 			DestroyWindow( hWnd );
 			}
 			break;	// IDM_EXIT
+
+		case IDM_TOPMOST:
+			{
+			gfTopMost ^= 1;
+			SetWindowPos( ghWnd, gfTopMost ? HWND_TOPMOST : HWND_NOTOPMOST ,
+								giX, giY, giWidth, giHeight, SWP_SHOWWINDOW );
+			}
+			break;	// IDM_TOPMOST
 
 		default:
 			{
