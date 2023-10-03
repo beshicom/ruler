@@ -1,2 +1,3 @@
-Ruler that moves with the cursor
 # ruler
+Ruler that moves with the cursor
+
