@@ -1,0 +1,26 @@
+
+
+
+//
+//	ruler
+//
+//	sunce 2023/10/03 by beshi
+//
+
+
+
+#include	<windows.h>
+#include	"ruler.h"
+
+
+
+MyMenu	MENU	DISCARDABLE
+{
+	POPUP	""
+	{
+		MENUITEM	"&Exit", IDM_EXIT
+	}
+}
+
+
+
